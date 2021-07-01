@@ -3,6 +3,7 @@
 
 
 #define RC_CH1  2
+#define LED_PWM 9
 
 uint32_t last_interrupt_time = 0;
 uint16_t value = 1500;
@@ -17,6 +18,7 @@ void isr_handler() {
     
     led_value = map(value, 1000, 2000, 0, 255); 
     analogWrite(LED_BUILTIN, led_value);
+    analogWrite(LED_PWM, led_value);
   }
 }
 
@@ -24,6 +26,7 @@ void setup() {
   Serial.begin(57600);
   pinMode(RC_CH1, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(LED_PWM, OUTPUT);
   enableInterrupt(RC_CH1, isr_handler, CHANGE);
 }
 
